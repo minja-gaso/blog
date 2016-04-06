@@ -155,6 +155,7 @@ public class BlogListServlet extends HttpServlet
 		
 		System.out.println(xmlStr);
 		response.setCharacterEncoding("utf-8");
+		response.setContentType("text/html");
 //		response.getWriter().println(skinHtmlStr);
 		response.getWriter().println(htmlStr);
 		
