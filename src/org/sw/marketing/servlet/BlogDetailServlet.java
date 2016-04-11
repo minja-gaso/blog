@@ -11,12 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 import org.jsoup.nodes.Element;
 import org.sw.marketing.dao.blog.BlogDAO;
 import org.sw.marketing.dao.blog.DAOFactory;
+import org.sw.marketing.dao.blog.file.BlogTopicFileDAO;
 import org.sw.marketing.dao.blog.skin.BlogSkinDAO;
 import org.sw.marketing.dao.blog.topic.BlogTopicDAO;
 import org.sw.marketing.dao.blog.topic.BlogTopicTagDAO;
 import org.sw.marketing.data.blog.Data;
 import org.sw.marketing.data.blog.Data.Blog;
 import org.sw.marketing.data.blog.Data.Blog.Topic;
+import org.sw.marketing.data.blog.Data.Blog.Topic.File;
 import org.sw.marketing.data.blog.Data.Blog.Topic.Tag;
 import org.sw.marketing.data.blog.Environment;
 import org.sw.marketing.data.blog.Skin;
@@ -59,6 +61,7 @@ public class BlogDetailServlet extends HttpServlet
 		BlogDAO blogDAO = DAOFactory.getBlogDAO();
 		BlogTopicDAO topicDAO = DAOFactory.getBlogTopicDAO();
 		BlogTopicTagDAO topicTagDAO = DAOFactory.getBlogTopicTagDAO();
+		BlogTopicFileDAO fileDAO = DAOFactory.getBlogTopicFileDAO();
 //		CalendarCategoryDAO categoryDAO = DAOFactory.getCalendarCategoryDAO();
 		
 		Data data = new Data();
@@ -82,6 +85,11 @@ public class BlogDetailServlet extends HttpServlet
 				if(tags != null)
 				{
 					topic.getTag().addAll(tags);
+				}
+				java.util.List<File> files = fileDAO.getFiles(topicID);
+				if(files != null)
+				{
+					topic.getFile().addAll(files);
 				}
 				blog.getTopic().add(topic);
 			}
